@@ -19,7 +19,7 @@ class Subject:
     def get_teacher(self):
         return self.__teacher
 
- class Student:
+class Student:
     def __init__(self, student_id, name):
         self.__student_id = student_id
         self.__name = name
@@ -34,7 +34,17 @@ Error
                 return Already
 Enrolled
         self.__enrollments.append(Enrollment(self, subject))
-        return Done        
+        return Done
+
+    def drop(self, subject):
+        if isinstance(subject, str):
+            return Error
+        for e in self.__enrollments:
+            if e.get_subject() == subject:
+                self.__enrollments.remove(e)
+                return Done
+        return Not
+Found        
 
     def get_enrolled_subjects(self):
         return [e.get_subject() for e in self.__enrollments]
